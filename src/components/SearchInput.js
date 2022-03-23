@@ -10,15 +10,17 @@ function SearchInput({ data }) {
     setInput(newFilter);
   };
   return (
-    <div className="searchContainer">
-      <div className="search-field">
+    <div className="my-5 text-center">
+      <div className="text-center">
         <input
           type="text"
-          className="inputField"
+          className="px-10 md:px-20  py-2  rounded-lg"
           value={input}
           onChange={handleFilter}
         />
-        <button className="serachBtn">Search</button>
+        <button className="bg-[#f64c72] p-2 rounded-lg shadow text-white">
+          Search
+        </button>
       </div>
       {input.length !== 0 && (
         <div className="container">

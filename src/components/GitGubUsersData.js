@@ -3,13 +3,22 @@ import GitHubTemplate from "./GitHubTemplate";
 import SearchInput from "./SearchInput";
 
 function GitGubUsersData() {
-  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [data, setData] = useState([]);
 
   const gitHubUsers = async () => {
-    const respons = await fetch("https://api.github.com/users");
-    const users = await respons.json();
-    console.log(users);
-    setData(users);
+    setLoading(true);
+    try {
+      const respons = await fetch("https://api.github.com/users");
+      const users = await respons.json();
+      setLoading(false);
+      setData(users);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -19,7 +28,7 @@ function GitGubUsersData() {
   return (
     <>
       <SearchInput data={data} />
-      <GitHubTemplate data={data} />
+      <GitHubTemplate data={data} error={error.message} />
     </>
   );
 }
